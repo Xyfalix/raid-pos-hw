@@ -2,9 +2,9 @@
   "name": "raid-pos-hw",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:express": "node --watch server.js",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -20,6 +20,7 @@
     "react-daisyui": "^5.0.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3",
+    "serve-static": "^1.15.0",
     "sweetalert2": "^11.10.4",
     "sweetalert2-react-content": "^5.0.7"
   },
