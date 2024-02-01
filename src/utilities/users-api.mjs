@@ -22,14 +22,16 @@ export async function signUp(userData) {
   }
 }
 
-export async function login(email, password) {
+export async function login(name, password) {
   const res = await fetch(`${BASE_URL}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     // Fetch requires data payloads to be stringified
     // and assigned to a body property on the options object
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ name, password }),
   });
+
+  console.log(name)
 
   // Check if request was successful
   if (res.ok) {

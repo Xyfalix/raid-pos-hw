@@ -1,15 +1,23 @@
-import './App.css'
+import { Route, Routes } from "react-router-dom"
+import './App.css';
+import AppLanding from "..//AppLandingPage/AppLanding";
+import AccessDenied from '../AccessDeniedPage/AccessDenied';
+import { ProtectedRoute } from '../../components/ProtectedRoute';
+import { getUser } from '../../utilities/users-service.mjs';
+import AuthPage from "../AuthPage/AuthPage";
+import { useState } from 'react';
 
-function App() {
+
+export default function App() {
+  const [user, setUser] = useState(getUser());
 
   return (
     <>
-      <h1>Vite + React</h1>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route exact path="/" element={<AppLanding />}></Route>
+        <Route path="/login" element={<AuthPage setUser={setUser} />}></Route>
+        <Route path="/access-denied" element={<AccessDenied />}></Route>
+      </Routes>
     </>
-  )
+  );
 }
-
-export default App

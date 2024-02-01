@@ -49,8 +49,8 @@ export function logout() {
 }
 
 // calls the login function from users-api
-export async function login(email, password) {
-  const data = await usersAPI.login(email, password);
+export async function login(name, password) {
+  const data = await usersAPI.login(name, password);
   return data;
 }
 

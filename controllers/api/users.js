@@ -7,17 +7,20 @@ const create = async (req, res) => {
   const data = req.body;
 
   const user = await User.create(data);
-  const { _id, name, email, role } = user;
-  const token = jwt.sign({ _id, name, email, role }, process.env.SECRET, {
+  const { _id, name, role } = user;
+  const token = jwt.sign({ _id, name, role }, process.env.SECRET, {
     expiresIn: TOKEN_EXPIRY,
   });
   res.status(201).json(token);
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  console.log(req.body)
+  const { name, password } = req.body;
+  console.log(name)
+  console.log(password)
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ name });
 
   if (user === null) {
     res.status(401).json({ error: "No such user exists!" });
@@ -25,9 +28,10 @@ const login = async (req, res) => {
   }
 
   const match = await bcrypt.compare(password, user.password);
+  console.log(`match is ${match}`)
   if (match) {
-    const { _id, name, email, role } = user;
-    const token = jwt.sign({ _id, name, email, role }, process.env.SECRET, {
+    const { _id, name, role } = user;
+    const token = jwt.sign({ _id, name, role }, process.env.SECRET, {
       expiresIn: TOKEN_EXPIRY,
     });
     res.status(200).json(token);
