@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "fruit": {
+        "image": "https://fruitpicbucket.s3.ap-southeast-1.amazonaws.com/apple.jpg"
+      }
+    },
+    {
+      "fruit": {
+        "image": "https://fruitpicbucket.s3.ap-southeast-1.amazonaws.com/banana.jpg"
+      }
+    },
+    {
+      "fruit": {
+        "image": "https://fruitpicbucket.s3.ap-southeast-1.amazonaws.com/orange.jpeg"
+      }
+    },
+    {
+      "fruit": {
+        "image": "https://fruitpicbucket.s3.ap-southeast-1.amazonaws.com/pear.jpg"
+      }
+    }
+  ]
+}

@@ -1,12 +1,14 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
+import daisyUi from "daisyui";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  // Configure DaisyUI themes here
+  daisyui: {
+    themes: ["lemonade"],
   },
-  plugins: [],
-}
+
+  plugins: [daisyUi],
+});
+
 
