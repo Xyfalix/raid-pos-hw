@@ -12,6 +12,8 @@ app.use(express.static(path.join(__dirname, "dist")));
 
 // routes
 app.use("/api/users", require("./routes/api/users"));
+app.use("/api/orders", require("./routes/api/orders"));
+app.use("/api/fruits", require("./routes/api/fruits"));
 app.get("/api", (req, res) => {
     res.json({ msg: "Hello World!"})
 })
