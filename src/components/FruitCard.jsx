@@ -1,4 +1,5 @@
 import { BsFillCartPlusFill } from "react-icons/bs";
+import { addToCart } from "../utilities/users-service";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";

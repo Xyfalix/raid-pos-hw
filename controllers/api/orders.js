@@ -7,7 +7,7 @@ const getAllOrders = async (req, res) => {
     const userOrders = await Order.find({ user: userId })
       .populate([
         { path: "lineItems", select: "qty" },
-        { path: "lineItems.item", select: "itemPrice" },
+        { path: "lineItems.fruit", select: "fruitPrice" },
       ])
       .exec();
 
@@ -42,7 +42,7 @@ const getCart = async (req, res) => {
       orderStatus: "pending payment",
       user: userId,
     })
-      .populate("lineItems.item")
+      .populate("lineItems.fruit")
       .exec();
     // return cart if it exists
     if (cart) {
@@ -74,7 +74,7 @@ const getCart = async (req, res) => {
 
 const setItemQtyInCart = async (req, res) => {
   const userId = res.locals.userId;
-  const itemId = req.params.itemId;
+  const fruitName = req.params.fruitName;
   const itemQty = req.params.itemQty;
   try {
     // populate line items in cart
@@ -82,12 +82,12 @@ const setItemQtyInCart = async (req, res) => {
       orderStatus: "pending payment",
       user: userId,
     })
-      .populate("lineItems.item")
+      .populate("lineItems.fruit")
       .exec();
 
     if (cart) {
       const lineItem = cart.lineItems.find(
-        (lineItem) => lineItem.item.itemId === itemId,
+        (lineItem) => lineItem.fruit.fruitName === fruitName,
       );
       // set line item qty to specified value
       if (lineItem && itemQty > 0) {
@@ -95,11 +95,11 @@ const setItemQtyInCart = async (req, res) => {
         await cart.save();
         return res.status(200).json(lineItem);
       } else {
-        return res.status(400).json({ error: "item not found" });
+        return res.status(400).json({ error: "fruit not found" });
       }
     }
   } catch (error) {
-    return res.status(500).json({ error: "unable to set item qty" });
+    return res.status(500).json({ error: "unable to set fruit qty" });
   }
 };
 
@@ -107,6 +107,7 @@ const addToCart = async (req, res) => {
   const addedQty = parseInt(req.params.addedQty);
   const userId = res.locals.userId;
   const fruitData = req.body;
+  const fruitName = fruitData.fruitName
   console.log(typeof addedQty);
 
 
@@ -132,6 +133,7 @@ const addToCart = async (req, res) => {
         console.log(typeof existingItem.qty);
         existingItem.qty += addedQty;
       } else {
+        let fruit = await Fruit.findOne({ fruitName })
         cart.lineItems.push({ fruit, qty: addedQty });
       }
       await cart.save();
@@ -139,13 +141,6 @@ const addToCart = async (req, res) => {
     } else {
       // create a new order and add item to order
       let fruit = await Fruit.findOne({ fruitName });
-      if (!fruit) {
-        // create a new item document using card info
-        console.log("Creating card item");
-        fruit = await Fruit.create(fruitData);
-        await fruit.save();
-      }
-
       const newOrder = await Order.create({
         user: userId,
         lineItems: [{ fruit: fruit._id, qty: addedQty }],
@@ -155,7 +150,7 @@ const addToCart = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Unable to add item to cart" });
+    return res.status(500).json({ error: "Unable to add fruit to cart" });
   }
 };
 
