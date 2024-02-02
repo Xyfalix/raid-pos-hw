@@ -2,21 +2,29 @@
   "data": [
     {
       "fruit": {
+        "name": "apple",
+        "price": 2.00,
         "image": "https://fruitpicbucket.s3.ap-southeast-1.amazonaws.com/apple.jpg"
       }
     },
     {
       "fruit": {
+        "name": "banana",
+        "price": 1.50,
         "image": "https://fruitpicbucket.s3.ap-southeast-1.amazonaws.com/banana.jpg"
       }
     },
     {
       "fruit": {
+        "name": "orange",
+        "price": 1.80,
         "image": "https://fruitpicbucket.s3.ap-southeast-1.amazonaws.com/orange.jpeg"
       }
     },
     {
       "fruit": {
+        "name": "pear",
+        "price": 2.30,
         "image": "https://fruitpicbucket.s3.ap-southeast-1.amazonaws.com/pear.jpg"
       }
     }

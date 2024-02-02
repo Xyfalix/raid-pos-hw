@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import { getUser } from "../../utilities/users-service.mjs";
 import fruitImageData from "../../../fruitImageData.json"
+import FruitCard from "../../components/FruitCard";
 
 export default function AppLanding() {
   const [user, setUser] = useState(getUser);
-  const [fruitImages, setFruitImages] = useState(fruitImageData)
+  const [fruits, setFruits] = useState(fruitImageData);
 
   const navigate = useNavigate();
 
@@ -15,20 +16,17 @@ export default function AppLanding() {
     <>
       <main className="App">
         <NavBar user={user} setUser={setUser} />
-        <div className="min-h-screen flex m-4">
-          <div className="flex flex-col pb-96">
-            <p className="mx-3 text-4xl font-bold text-center">Fruits</p>
-          </div>
-          <div className="w-screen m-4">
-            <div className="grid grid-cols-2 gap-4">
-              {fruitImages.data.map((fruitImage, index) => (
-                <div key={index} className="relative aspect-w-16 aspect-h-9">
-                  <img
-                    src={fruitImage.fruit.image}
-                    alt={`Landing Card Image ${index}`}
-                    style={{ width: '300px', height: '300px' }}
-                  />
-                </div>
+        <div className="left-half min-h-screen flex m-4">
+          <div className="flex flex-col">
+            <p className="mx-3 mb-5 text-4xl font-bold">Fruits</p>
+            <div className="grid grid-cols-2 gap-1">
+              {fruits.data.map((fruit, index) => (
+                <FruitCard
+                    key={index}
+                    fruitImage={fruit.fruit.image}
+                    fruitName={fruit.fruit.name}
+                    fruitPrice={fruit.fruit.price}
+                />
               ))}
             </div>
           </div>
