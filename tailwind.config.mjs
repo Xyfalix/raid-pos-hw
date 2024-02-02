@@ -5,7 +5,7 @@ export default defineConfig({
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   // Configure DaisyUI themes here
   daisyui: {
-    themes: ["lemonade"],
+    themes: ["dark"],
   },
 
   plugins: [daisyUi],

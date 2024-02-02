@@ -17,15 +17,15 @@ export default function NavBar({ user, setUser }) {
   const isAdmin = user && user.role === "admin";
 
   return (
-    <nav className="bg-indigo-700 text-primary-content py-2">
+    <nav className="bg-indigo-600 text-primary-content py-2">
       {user ? ( // user is signed in
-        <div className="flex justify-between">
+        <main className="flex justify-between">
           <div className="flex flex-row items-center">
-            <p className="text-lg mx-4">NUTC FarPrice</p>
+            <p className="text-4xl mx-4 text-slate-50">NUTC FarPrice</p>
           </div>
           <div className="flex flex-row items-center">
             <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost rounded-btn">
+              <label tabIndex={0} className="btn btn-ghost rounded-btn text-xl text-slate-50">
                 Hi, {user.name}
               </label>
               <ul
@@ -43,7 +43,7 @@ export default function NavBar({ user, setUser }) {
               </ul>
             </div>
           </div>
-        </div>
+        </main>
       ) : (
         // user === null
         <div className="flex justify-between">

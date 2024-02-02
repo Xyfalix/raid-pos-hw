@@ -37,15 +37,15 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice }) {
 
   return (
     <>
-      <div className="w-96 bg-slate-400 flex flex-col items-start border-black border-2">
+      <div className="w-96 bg-slate-800 flex flex-col items-start border-white border-2">
         <figure className="flex flex-row w-full mx-4 my-3">
           <img src={fruitImage} alt={fruitName} style={{ width: '300px', height: '300px' }} />
         </figure>
 
         <hr className="w-full bg-black my-3" />
         <div className="flex flex-col pl-7 items-start w-full">
-          <p className="text-black">{fruitName}</p>
-          <div className="flex flex-row justify-between items-center w-full ">
+          <div className="flex flex-row justify-between items-center w-full mb-5 ">
+            <p className="text-slate-50">{fruitName}</p>
             <p className="text-emerald-500">${parseFloat(fruitPrice).toFixed(2)}</p>
             <select
               className="select outline outline-2 outline-black select-xs bg-white rounded-md my-2 text-black"
@@ -60,7 +60,7 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice }) {
             </select>
             <button
               onClick={handleAddToCart}
-              className="btn btn-sm bg-slate-400 mr-7"
+              className="btn btn-sm bg-slate-400 mr-7 text-white"
               disabled={fruitPrice === "Out of Stock"}
             >
               <BsFillCartPlusFill />
