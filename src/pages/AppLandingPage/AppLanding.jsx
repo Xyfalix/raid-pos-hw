@@ -91,7 +91,7 @@ export default function AppLanding() {
             <p className="mx-3 mb-5 text-4xl font-bold text-slate-50 text-center">
               Check Out
             </p>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center">
               {cartData?.cartWithExtPrice?.length > 0 ? (
                 cartData.cartWithExtPrice.map((fruit, index) => (
                   <CheckOutCard
@@ -112,8 +112,8 @@ export default function AppLanding() {
               )}
               {/* Render the summary container only if the cart is not empty */}
               {cartData?.cartWithExtPrice?.length > 0 && (
-                <div className="summary-container w-max h-max mt-44 ml-8 border-white border-2">
-                  <div className="bg-slate-800 flex flex-col items-center">
+                <div className="card mt-5 border-white border-2 w-80">
+                  <div className="card bg-slate-800 flex flex-col items-center">
                     <p className="mx-10 mt-2 text-white text-3xl">
                       Total:{" "}
                       {typeof cartData?.orderTotal === "number"
@@ -121,7 +121,7 @@ export default function AppLanding() {
                         : ""}
                     </p>
                     <button
-                      className="btn btn-lg bg-indigo-700 text-white mt-5 ml-2 mb-5 mr-5"
+                      className="btn w-72 bg-indigo-700 text-white mt-5 mb-5 px-4"
                       onClick={handleCheckout}
                     >
                       CheckOut

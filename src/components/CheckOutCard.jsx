@@ -23,17 +23,17 @@ export default function CheckOutCard({
 
   return (
     <>
-      <div className="card card-side bg-slate-800 shadow-xl flex flex-row justify-between items-center min-w-max max-w-lg border-2 border-white mx-2 my-1">
+      <div className="card bg-slate-800 flex flex-row items-center border-2 border-white my-1">
         <div className="flex flex-row w-full justify-between">
           <div className="image-desc container flex flex-row">
-            <div className="desc-container flex flex text-white mx-5 justify-center">
+            <div className="desc-container flex flex text-white mx-5 justify-center items-center">
               <p>{fruitName}</p>
-              <p className="ml-8 mr-5 text-white">{fruitPrice}</p>
+              <p className="ml-8 mr-5 text-white">${fruitPrice.toFixed(2)}</p>
             </div>
           </div>
           <div className="flex flex-row justify-end items-center">
             <select
-              className="select outline outline-1 select-sm bg-white rounded-md mb-2 mr-2 text-black"
+              className="select outline outline-1 select-sm bg-white rounded-md my-2 mr-2 text-black"
               defaultValue={qty}
               onChange={handleChange}
             >
@@ -43,7 +43,7 @@ export default function CheckOutCard({
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <p className="ml-8 mr-5 text-white">Subtotal: {extPrice.toFixed(2)}</p>
+            <p className="ml-8 mr-5 text-white">Subtotal: ${extPrice.toFixed(2)}</p>
           </div>
         </div>
       </div>
