@@ -104,46 +104,41 @@ const setItemQtyInCart = async (req, res) => {
 };
 
 const addToCart = async (req, res) => {
+  const fruitName = req.params.fruitName
   const addedQty = parseInt(req.params.addedQty);
   const userId = res.locals.userId;
-  const fruitData = req.body;
-  const fruitName = fruitData.fruitName
+  console.log(userId);
   console.log(typeof addedQty);
-
-
-  console.log(`fruit name is ${fruitData.fruitName}`);
-  console.log(`fruit image is ${fruitData.fruitImage}`);
-  console.log(`fruit price is ${fruitData.fruitPrice}`)
 
   try {
     const cart = await Order.findOne({
       orderStatus: "pending payment",
       user: userId,
     })
-      .populate("lineItems.item")
+      .populate("lineItems.fruit")
       .exec();
 
     if (cart) {
       // check if item exists in cart and add qty if it exists
       const existingItem = cart.lineItems.find(
-        (lineItem) => lineItem.fruit.fruitName === fruitData.fruitName,
+        (lineItem) => lineItem.fruit.fruitName === fruitName,
       );
 
-      if (existingItem) {
+      if (existingItem) { // if fruit exists, add added qty to its current value
         console.log(typeof existingItem.qty);
         existingItem.qty += addedQty;
-      } else {
+      } else { // add new fruit and addedQty to cart
         let fruit = await Fruit.findOne({ fruitName })
         cart.lineItems.push({ fruit, qty: addedQty });
       }
       await cart.save();
       return res.status(200).json(cart);
     } else {
-      // create a new order and add item to order
+      // create a new order and add item to order if cart does not exist
       let fruit = await Fruit.findOne({ fruitName });
       const newOrder = await Order.create({
         user: userId,
-        lineItems: [{ fruit: fruit._id, qty: addedQty }],
+        lineItems: [{ fruit, qty: addedQty }],
       });
       await newOrder.save();
       return res.status(201).json(newOrder);

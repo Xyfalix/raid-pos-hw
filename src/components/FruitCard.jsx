@@ -13,16 +13,8 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice }) {
   };
 
   async function handleAddToCart() {
-    const cardDetails = {
-      itemName: fruitName,
-      itemPrice: fruitPrice,
-      itemImage: fruitImage,
-      //   setTotal: parseInt(setTotal),
-    };
-
     try {
-      console.log(cardDetails);
-      //   await addToCart(cardId, qtyAdded, cardDetails);
+      await addToCart(fruitName, qtyAdded);
       MySwal.fire({
         title: <p>Item added to cart!</p>,
         icon: "success",
@@ -40,14 +32,20 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice }) {
     <>
       <div className="w-96 bg-slate-800 flex flex-col items-start border-white border-2">
         <figure className="flex flex-row w-full mx-4 my-3">
-          <img src={fruitImage} alt={fruitName} style={{ width: '300px', height: '300px' }} />
+          <img
+            src={fruitImage}
+            alt={fruitName}
+            style={{ width: "300px", height: "300px" }}
+          />
         </figure>
 
         <hr className="w-full bg-black my-3" />
         <div className="flex flex-col pl-7 items-start w-full">
           <div className="flex flex-row justify-between items-center w-full mb-5 ">
             <p className="text-slate-50">{fruitName}</p>
-            <p className="text-emerald-500">${parseFloat(fruitPrice).toFixed(2)}</p>
+            <p className="text-emerald-500">
+              ${parseFloat(fruitPrice).toFixed(2)}
+            </p>
             <select
               className="select outline outline-2 outline-black select-xs bg-white rounded-md my-2 text-black"
               defaultValue="1"

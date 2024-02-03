@@ -14,7 +14,7 @@ const checkToken = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.SECRET);
-        res.locals.userID = decoded._id;
+        res.locals.userId = decoded._id;
         res.locals.userRole = decoded.role;
         next();
     } catch (err) {
