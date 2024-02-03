@@ -4,7 +4,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-export default function FruitCard({ fruitName, fruitImage, fruitPrice }) {
+export default function FruitCard({ fruitName, fruitImage, fruitPrice, handleQuantityUpdate}) {
   const [qtyAdded, setQtyAdded] = useState(1);
   const MySwal = withReactContent(Swal);
 
@@ -15,6 +15,8 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice }) {
   async function handleAddToCart() {
     try {
       await addToCart(fruitName, qtyAdded);
+      // update the cart details with fruit and qty added
+      handleQuantityUpdate();
       MySwal.fire({
         title: <p>Item added to cart!</p>,
         icon: "success",
@@ -27,6 +29,8 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice }) {
       });
     }
   }
+
+
 
   return (
     <>

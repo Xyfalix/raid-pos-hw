@@ -1,34 +1,52 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useRef } from "react";
+import { setItemQty, deleteItemFromCart } from "../utilities/users-service";
 
-export default function CheckOutCard({fruitName, fruitPrice}) {
+export default function CheckOutCard({
+  fruitName,
+  fruitPrice,
+  qty,
+  handleQuantityUpdate,
+  extPrice
+}) {
+  async function handleChange(e) {
+    const newQty = e.target.value;
+
+    try {
+      await setItemQty(fruitName, newQty);
+      handleQuantityUpdate();
+    } catch (error) {
+      console.error("Error changing fruit qty: ", error);
+    }
+  }
 
   return (
     <>
       <div className="card card-side bg-slate-800 shadow-xl flex flex-row justify-between items-center min-w-max max-w-lg border-2 border-white mx-2 my-1">
         <div className="flex flex-row w-full justify-between">
           <div className="image-desc container flex flex-row">
-            <div className="desc-container flex flex-col text-white mx-5 justify-center">
-              <p>fruit name here</p>
+            <div className="desc-container flex flex text-white mx-5 justify-center">
+              <p>{fruitName}</p>
+              <p className="ml-8 mr-5 text-white">{fruitPrice}</p>
             </div>
           </div>
-            <div className="flex flex-row justify-end items-center">
-              <select
-                className="select outline outline-1 select-sm bg-white rounded-md mb-2 mr-2 text-black"
-                defaultValue={1}
-                // onChange={handleChange}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-              <p className="ml-8 mr-5 text-white">cumulative price here</p>
-            </div>
+          <div className="flex flex-row justify-end items-center">
+            <select
+              className="select outline outline-1 select-sm bg-white rounded-md mb-2 mr-2 text-black"
+              defaultValue={qty}
+              onChange={handleChange}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <p className="ml-8 mr-5 text-white">Subtotal: {extPrice.toFixed(2)}</p>
           </div>
         </div>
+      </div>
     </>
   );
 }
