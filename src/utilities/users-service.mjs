@@ -58,3 +58,58 @@ export async function checkToken() {
   const data = await usersAPI.checkToken();
   return data;
 }
+
+export async function getAllOrders() {
+  // return all orders if they exist or a message saying no available order history
+  const ordersData = await usersAPI.getAllOrders();
+  return ordersData;
+}
+
+export async function getCart() {
+  // return cart object if it exists or a message saying cart is empty
+  const cartData = await usersAPI.getCart();
+  return cartData;
+}
+
+export async function setItemQty(itemId, itemQty) {
+  // return item object with updated qty
+  const updatedItem = await usersAPI.setItemQty(itemId, itemQty);
+  return updatedItem;
+}
+
+export async function addToCart(fruitName, qtyAdded) {
+  // returns cart with new added item
+  console.log(`usersServices ${fruitName}`);
+  const updatedCartData = await usersAPI.addToCart(
+    fruitName,
+    qtyAdded,
+  );
+  return updatedCartData;
+}
+
+export async function deleteItemFromCart(fruitName) {
+  // returns remaining cart items after deletion
+  const updatedCartData = await usersAPI.deleteItemFromCart(fruitName);
+  return updatedCartData;
+}
+
+export async function checkout() {
+  // returns entire cart with order status changed to paid
+  console.log("checkout function called");
+  const updatedCartData = await usersAPI.checkout();
+  return updatedCartData.orderStatus;
+}
+
+// retrieve all items in Db
+export async function getAllFruits() {
+  // return all items if they exist or a message saying no items in db
+  const itemsData = await usersAPI.getAllFruits();
+  return itemsData;
+}
+
+// add item to Db
+export async function addFruit(item) {
+  // returns new item Json
+  const newItemData = await usersAPI.addFruit(item);
+  return newItemData;
+}

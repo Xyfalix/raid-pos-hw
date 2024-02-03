@@ -6,12 +6,12 @@ const { checkToken } = require("../../config/checkToken");
 router.get("/", checkToken, ordersCtrl.getAllOrders);
 router.get("/getCart", checkToken, ordersCtrl.getCart);
 router.patch(
-  "/setItemQty/:itemId/:itemQty",
+  "/setItemQty/:fruitName/:itemQty",
   checkToken,
   ordersCtrl.setItemQtyInCart,
 );
-router.post("/:itemId/:addedQty", checkToken, ordersCtrl.addToCart);
-router.delete("/:itemId", checkToken, ordersCtrl.deleteItemFromCart);
+router.post("/:fruitName/:addedQty", checkToken, ordersCtrl.addToCart);
+router.delete("/:fruitName", checkToken, ordersCtrl.deleteItemFromCart);
 router.patch("/checkout", checkToken, ordersCtrl.checkout);
 
 module.exports = router;

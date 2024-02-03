@@ -156,9 +156,9 @@ const addToCart = async (req, res) => {
 
 const deleteItemFromCart = async (req, res) => {
   const userId = res.locals.userId;
-  const itemId = req.params.itemId;
+  const fruitName = req.params.fruitName;
 
-  console.log(`cardId is ${itemId}`);
+  console.log(`fruit name is ${fruitName}`);
 
   try {
     const cart = await Order.findOne({
@@ -172,17 +172,18 @@ const deleteItemFromCart = async (req, res) => {
       return res.status(404).json({ error: "cart not found" });
     }
 
-    const itemIndex = cart.lineItems.findIndex(
-      (lineItem) => lineItem.item.itemId === itemId,
+    const fruitIndex = cart.lineItems.findIndex(
+      (lineItem) => lineItem.fruit.fruitName === fruitName,
     );
 
-    console.log(`item index is ${itemIndex}`);
+    console.log(`item index is ${fruitIndex}`);
 
-    if (itemIndex === -1) {
+    if (fruitIndex === -1) {
       return res.status(404).json({ error: "Item not found in order" });
     }
 
-    cart.lineItems.splice(itemIndex, 1);
+    // remove specified fruit from cart
+    cart.lineItems.splice(fruitIndex, 1);
 
     console.log(`cart lineitems is ${cart.lineItems}`);
 
