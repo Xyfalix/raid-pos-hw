@@ -65,9 +65,9 @@ export default function CheckOutCard({
 
   return (
     <>
-      <div className="card bg-slate-800 flex flex-row items-center my-1">
+      <div className="bg-slate-800 flex flex-row items-center my-1">
         <p className="text-white w-20 text-center">{fruitName}</p>
-        <p className="mx-2 text-white w-20 text-center">
+        <p className="mx-2 text-white w-20 text-center ">
           ${fruitPrice.toFixed(2)}
         </p>
         <select
@@ -87,7 +87,7 @@ export default function CheckOutCard({
           Subtotal: ${extPrice.toFixed(2)}
         </p>
         <button
-          className="btn card btn-sm bg-slate-800 text-red-500 text-2xl border-none"
+          className="btn card btn-sm bg-slate-800 text-red-500 text-2xl"
           onClick={handleDelete}
         >
           <RxCrossCircled />

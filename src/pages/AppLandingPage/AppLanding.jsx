@@ -83,12 +83,13 @@ export default function AppLanding() {
     <>
       <main className="App">
         <NavBar user={user} setUser={setUser} />
-        <section className="min-h-screen flex m-4">
-          <div className="left-half flex flex-col w-2/3">
-            <p className="mx-3 mb-5 text-4xl font-bold text-slate-50 text-center">
+        <section className="min-h-screen flex flex-col lg:flex-row m-4">
+          {/* Fruit title and items display */}
+          <div className="flex flex-col xl:items-center xl:w-2/3">
+            <p className="mx-3 mb-5 text-4xl font-bold text-slate-50 lg:text-center">
               Fruits
             </p>
-            <div className="grid grid-cols-2 gap-1">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-1">
               {fruits.map((fruit, index) => (
                 <FruitCard
                   key={index}
@@ -102,11 +103,12 @@ export default function AppLanding() {
               ))}
             </div>
           </div>
-          <div className="right-half flex flex-col w-1/3 items-center">
-            <p className="mx-3 mb-5 text-4xl font-bold text-slate-50 text-center">
+          {/* Checkout and total */}
+          <div className="flex flex-col lg:w-1/3 lg:items-center ml-2 mt-8">
+            <p className="mx-3 mb-5 text-4xl font-bold text-slate-50 xl:text-center">
               Check Out
             </p>
-            <div className={`flex flex-col items-center ${cartData?.cartWithExtPrice?.length > 0 ? 'border-2 border-white' : 'border-none'}`}>
+            <div className={`flex flex-col mb-5 max-w-lg self-start lg:items-center ${cartData?.cartWithExtPrice?.length > 0 ? 'border-2 border-white' : 'border-none'}`}>
               {cartData?.cartWithExtPrice?.length > 0 ? (
                 cartData.cartWithExtPrice.map((fruit, index) => (
                   <CheckOutCard
@@ -122,7 +124,7 @@ export default function AppLanding() {
                 ))
               ) : (
                 // Cart is empty
-                <div className="text-center text-4xl mt-10">
+                <div className="lg:text-center text-4xl mt-10">
                   <p>Your cart is empty 😔</p>
                 </div>
               )}
