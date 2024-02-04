@@ -91,7 +91,7 @@ export default function AppLanding() {
             <p className="mx-3 mb-5 text-4xl font-bold text-slate-50 text-center">
               Check Out
             </p>
-            <div className="flex flex-col items-center">
+            <div className={`flex flex-col items-center ${cartData?.cartWithExtPrice?.length > 0 ? 'border-2 border-white' : 'border-none'}`}>
               {cartData?.cartWithExtPrice?.length > 0 ? (
                 cartData.cartWithExtPrice.map((fruit, index) => (
                   <CheckOutCard
@@ -106,12 +106,13 @@ export default function AppLanding() {
                 ))
               ) : (
                 // Cart is empty
-                <div className="text-center mr-32">
+                <div className="text-center text-4xl mt-10">
                   <p>Your cart is empty 😔</p>
                 </div>
               )}
-              {/* Render the summary container only if the cart is not empty */}
-              {cartData?.cartWithExtPrice?.length > 0 && (
+            </div>
+            {/* Render the summary container only if the cart is not empty */}
+            {cartData?.cartWithExtPrice?.length > 0 && (
                 <div className="card mt-5 border-white border-2 w-80">
                   <div className="card bg-slate-800 flex flex-col items-center">
                     <p className="mx-10 mt-2 text-white text-3xl">
@@ -121,7 +122,7 @@ export default function AppLanding() {
                         : ""}
                     </p>
                     <button
-                      className="btn w-72 bg-indigo-700 text-white mt-5 mb-5 px-4"
+                      className="btn w-72 bg-indigo-700 text-xl text-white mt-5 mb-5 px-4"
                       onClick={handleCheckout}
                     >
                       CheckOut
@@ -129,7 +130,6 @@ export default function AppLanding() {
                   </div>
                 </div>
               )}
-            </div>
           </div>
         </section>
       </main>
@@ -139,7 +139,7 @@ export default function AppLanding() {
           <p className="py-4">Are you sure you want to checkout your cart?</p>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn bg-indigo-700 " onClick={confirmCheckout}>
+              <button className="btn bg-indigo-700" onClick={confirmCheckout}>
                 Checkout
               </button>
               <button className="btn ml-5" onClick={hideModal}>

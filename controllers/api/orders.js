@@ -160,7 +160,7 @@ const deleteItemFromCart = async (req, res) => {
       orderStatus: "pending payment",
       user: userId,
     })
-      .populate("lineItems.item")
+      .populate("lineItems.fruit")
       .exec();
 
     if (!cart) {

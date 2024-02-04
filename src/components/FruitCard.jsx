@@ -35,7 +35,7 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice, handleQua
   return (
     <>
       <div className="w-96 bg-slate-800 flex flex-col items-start border-white border-2">
-        <figure className="flex flex-row w-full mx-4 my-3">
+        <figure className="flex flex-row w-full ml-9 mt-3">
           <img
             src={fruitImage}
             alt={fruitName}
