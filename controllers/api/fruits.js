@@ -31,6 +31,7 @@ const addFruit = async (req, res) => {
   }
 };
 
+
 module.exports = {
   getAllFruits,
   addFruit,

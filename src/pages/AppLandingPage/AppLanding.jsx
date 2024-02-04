@@ -1,18 +1,16 @@
 import "../App/App.css";
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
-import { getUser, getCart, checkout } from "../../utilities/users-service.mjs";
-import fruitData from "../../../fruitData.json";
+import { getUser, getCart, checkout, getAllFruits} from "../../utilities/users-service.mjs";
 import FruitCard from "../../components/FruitCard";
 import CheckOutCard from "../../components/CheckOutCard";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-const fruits = fruitData;
-
 export default function AppLanding() {
   const [user, setUser] = useState(getUser);
   const [cartData, setCartData] = useState(null);
+  const [fruits, setFruits] = useState([]);
   const MySwal = withReactContent(Swal);
 
   // run getCart to display current items in shoppingCart and update
@@ -66,6 +64,21 @@ export default function AppLanding() {
     }
   };
 
+  useEffect(() => {
+    // Function to fetch all fruits when the component mounts
+    async function fetchFruits() {
+      try {
+        const fruitsData = await getAllFruits();
+        setFruits(fruitsData);
+      } catch (error) {
+        console.error('Error fetching fruits:', error);
+      }
+    }
+
+    // Call the function
+    fetchFruits();
+  }, [cartData]);
+
   return (
     <>
       <main className="App">
@@ -76,13 +89,15 @@ export default function AppLanding() {
               Fruits
             </p>
             <div className="grid grid-cols-2 gap-1">
-              {fruits.data.map((fruit, index) => (
+              {fruits.map((fruit, index) => (
                 <FruitCard
                   key={index}
-                  fruitImage={fruit.fruit.image}
-                  fruitName={fruit.fruit.name}
-                  fruitPrice={fruit.fruit.price}
+                  fruitImage={fruit.fruitImage}
+                  fruitName={fruit.fruitName}
+                  fruitPrice={fruit.fruitPrice}
+                  availableStock={fruit.availableStock}
                   handleQuantityUpdate={handleQuantityUpdate}
+                  cartData={cartData}
                 />
               ))}
             </div>
@@ -96,12 +111,13 @@ export default function AppLanding() {
                 cartData.cartWithExtPrice.map((fruit, index) => (
                   <CheckOutCard
                     key={index}
-                    qty={fruit.qty}
                     extPrice={fruit.extPrice}
                     fruitImage={fruit.fruit.fruitImage}
                     fruitName={fruit.fruit.fruitName}
                     fruitPrice={fruit.fruit.fruitPrice}
+                    availableStock={fruit.fruit.availableStock}
                     handleQuantityUpdate={handleQuantityUpdate}
+                    cartData={cartData}
                   />
                 ))
               ) : (

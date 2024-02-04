@@ -4,7 +4,14 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-export default function FruitCard({ fruitName, fruitImage, fruitPrice, handleQuantityUpdate}) {
+export default function FruitCard({
+  fruitName,
+  fruitImage,
+  fruitPrice,
+  availableStock,
+  handleQuantityUpdate,
+  cartData,
+}) {
   const [qtyAdded, setQtyAdded] = useState(1);
   const MySwal = withReactContent(Swal);
 
@@ -30,7 +37,11 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice, handleQua
     }
   }
 
-
+  const maxQuantity =
+    availableStock -
+    (cartData?.cartWithExtPrice?.find(
+      (item) => item.fruit.fruitName === fruitName
+    )?.qty || 0);
 
   return (
     <>
@@ -44,31 +55,35 @@ export default function FruitCard({ fruitName, fruitImage, fruitPrice, handleQua
         </figure>
 
         <hr className="w-full bg-black my-3" />
-        <div className="flex flex-col pl-7 items-start w-full">
-          <div className="flex flex-row justify-between items-center w-full mb-5 ">
+
+        <div className="flex flex-row justify-between items-center w-full mb-5 ">
+          <div className="flex flex-col ml-5 items-center">
             <p className="text-slate-50">{fruitName}</p>
-            <p className="text-emerald-500">
-              ${parseFloat(fruitPrice).toFixed(2)}
-            </p>
-            <select
-              className="select outline outline-2 outline-black select-xs bg-white rounded-md my-2 text-black"
-              defaultValue="1"
-              onChange={handleDropdownChange}
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button
-              onClick={handleAddToCart}
-              className="btn btn-sm bg-slate-400 mr-7 text-white"
-              disabled={fruitPrice === "Out of Stock"}
-            >
-              <BsFillCartPlusFill />
-            </button>
+            <p className="text-slate-50">Qty left: {maxQuantity}</p>
           </div>
+          <p className="text-emerald-500">
+            ${parseFloat(fruitPrice).toFixed(2)}
+          </p>
+          <select
+            className="select outline outline-2 outline-black select-xs bg-white rounded-md my-2 text-black"
+            defaultValue="1"
+            onChange={handleDropdownChange}
+          >
+            {Array.from({ length: maxQuantity }, (_, index) => index + 1).map(
+              (option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              )
+            )}
+          </select>
+          <button
+            onClick={handleAddToCart}
+            className="btn btn-sm bg-slate-400 mr-7 text-white"
+            disabled={fruitPrice === "Out of Stock"}
+          >
+            <BsFillCartPlusFill />
+          </button>
         </div>
       </div>
     </>

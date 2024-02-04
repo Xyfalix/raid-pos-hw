@@ -7,10 +7,12 @@ import { RxCrossCircled } from "react-icons/rx";
 export default function CheckOutCard({
   fruitName,
   fruitPrice,
-  qty,
   handleQuantityUpdate,
+  availableStock,
   extPrice,
+  cartData,
 }) {
+
   const MySwal = withReactContent(Swal);
   const deleteModalRef = useRef(null);
 
@@ -56,6 +58,11 @@ export default function CheckOutCard({
     }
   }
 
+  const currentQty =
+    (cartData?.cartWithExtPrice.find(
+      (item) => item.fruit.fruitName === fruitName
+    )?.qty || 0);
+
   return (
     <>
       <div className="card bg-slate-800 flex flex-row items-center my-1">
@@ -65,14 +72,16 @@ export default function CheckOutCard({
         </p>
         <select
           className="select outline outline-1 select-sm bg-white rounded-md my-2 text-black "
-          defaultValue={qty}
+          value={currentQty}
           onChange={handleChange}
         >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
+          {Array.from({ length: availableStock}, (_, index) => index + 1).map(
+              (option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              )
+            )}
         </select>
         <p className="mx-2 text-white w-40 text-center">
           Subtotal: ${extPrice.toFixed(2)}

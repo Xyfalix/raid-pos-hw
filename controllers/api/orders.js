@@ -199,12 +199,50 @@ const checkout = async (req, res) => {
     const cart = await Order.findOne({
       orderStatus: "pending payment",
       user: userId,
-    });
+    })
+      .populate("lineItems.fruit")
+      .exec();
+
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found" });
+    }
+
+    for (const lineItem of cart.lineItems) {
+      const fruitName = lineItem.fruit.fruitName;
+      const itemQty = lineItem.qty;
+
+      // Call updateFruitQty for each item in the cart
+      await updateFruitQty(fruitName, itemQty);
+    }
+
     cart.orderStatus = "paid";
     await cart.save();
     return res.status(200).json(cart);
   } catch (error) {
     return res.status(500).json({ error: "Unable to checkout cart" });
+  }
+};
+
+const updateFruitQty = async (fruitName, itemQty) => {
+  try {
+    const fruit = await Fruit.findOne({
+      fruitName: fruitName,
+    });
+
+    if (fruit) {
+      if (fruit.availableStock - itemQty >= 0) {
+        fruit.availableStock -= itemQty;
+        await fruit.save();
+        return fruit; // Return the updated fruit
+      } else {
+        throw new Error("Amount being purchased is less than amount available!");
+      }
+    } else {
+      throw new Error("Fruit not found");
+    }
+  } catch (error) {
+    console.error(error);
+    throw new Error("Unable to update available stock");
   }
 };
 
