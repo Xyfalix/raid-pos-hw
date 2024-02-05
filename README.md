@@ -1,8 +1,36 @@
-# React + Vite
+# NUTC FarPrice - Fruit Point of Sales system
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+1. [App Description](#App_-Description)
+2. [Technologies](#Technologies)
+3. [Project Planning](#Project-Planning)
+4. [App Functionality](#App-Functionality)
+5. [Deployment](#Deployment)
+6. [Key Challenges](#Key-Challenges)
+7. [Future Developments](#Future-Developments)
+   
+## App Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a simple one-pager Point of Sales (POS) app that allows a user to sign in and select fruits and check out the cart, with the cart purchases stored in the database.
+
+## Technologies
+
+- **FrontEnd**: ReactJS, DaisyUI & Tailwind CSS
+- **BackEnd**: Mongoose, Express, Node.js
+- **Database**: MongoDB
+- **Others**: JWT for authentication
+
+## App Functionality 
+
+User
+### (Login/Sign Up --> Select fruits from selection panel --> Add selection to cart --> Review and edit fruit qty in cart if necessary --> Checkout)
+   
+## Deployment
+The app is deployed on Render, and you can access it here.
+[NUTC Farprice](https://shinier.onrender.com/)
+
+## Key Challenges
+- Took some time to figure out what quantities should be tracked, when the user edits cart qty, or adds fruits to the cart
+- Making the UI design reponsive in a reasonable amount of time.
+
