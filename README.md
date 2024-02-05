@@ -28,7 +28,7 @@ User
    
 ## Deployment
 The app is deployed on Render, and you can access it here.
-[NUTC Farprice](https://shinier.onrender.com/)
+[NUTC Farprice](https://nutcfarprice.onrender.com/)
 
 ## Key Challenges
 - Took some time to figure out what quantities should be tracked, when the user edits cart qty, or adds fruits to the cart
