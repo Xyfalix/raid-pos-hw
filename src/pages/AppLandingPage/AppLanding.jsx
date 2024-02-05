@@ -1,7 +1,12 @@
 import "../App/App.css";
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
-import { getUser, getCart, checkout, getAllFruits} from "../../utilities/users-service.mjs";
+import {
+  getUser,
+  getCart,
+  checkout,
+  getAllFruits,
+} from "../../utilities/users-service.mjs";
 import FruitCard from "../../components/FruitCard";
 import CheckOutCard from "../../components/CheckOutCard";
 import Swal from "sweetalert2";
@@ -71,7 +76,7 @@ export default function AppLanding() {
         const fruitsData = await getAllFruits();
         setFruits(fruitsData);
       } catch (error) {
-        console.error('Error fetching fruits:', error);
+        console.error("Error fetching fruits:", error);
       }
     }
 
@@ -108,9 +113,10 @@ export default function AppLanding() {
             <p className="mx-3 mb-5 text-4xl font-bold text-slate-50 xl:text-center">
               Check Out
             </p>
-            <div className={`flex flex-col mb-5 max-w-lg self-start lg:items-center ${cartData?.cartWithExtPrice?.length > 0 ? 'border-2 border-white' : 'border-none'}`}>
-              {cartData?.cartWithExtPrice?.length > 0 ? (
-                cartData.cartWithExtPrice.map((fruit, index) => (
+            {/* Display for non-empty cart */}
+            {cartData?.cartWithExtPrice?.length > 0 ? (
+              <div className="flex flex-col mb-5 max-w-lg self-start lg:items-center border-2 border-white">
+                {cartData.cartWithExtPrice.map((fruit, index) => (
                   <CheckOutCard
                     key={index}
                     extPrice={fruit.extPrice}
@@ -121,33 +127,33 @@ export default function AppLanding() {
                     handleQuantityUpdate={handleQuantityUpdate}
                     cartData={cartData}
                   />
-                ))
-              ) : (
-                // Cart is empty
-                <div className="lg:text-center text-4xl mt-10">
-                  <p>Your cart is empty 😔</p>
-                </div>
-              )}
-            </div>
+                ))}
+              </div>
+            ) : (
+              /* Display for empty cart */
+              <div className="lg:text-center text-4xl mt-10">
+                <p>Your cart is empty 😔</p>
+              </div>
+            )}
             {/* Render the summary container only if the cart is not empty */}
             {cartData?.cartWithExtPrice?.length > 0 && (
-                <div className="card mt-5 border-white border-2 w-80">
-                  <div className="card bg-slate-800 flex flex-col items-center">
-                    <p className="mx-10 mt-2 text-white text-3xl">
-                      Total:{" "}
-                      {typeof cartData?.orderTotal === "number"
-                        ? `$${cartData.orderTotal.toFixed(2)}`
-                        : ""}
-                    </p>
-                    <button
-                      className="btn w-72 bg-indigo-700 text-xl text-white mt-5 mb-5 px-4"
-                      onClick={handleCheckout}
-                    >
-                      CheckOut
-                    </button>
-                  </div>
+              <div className="card mt-5 border-white border-2 w-80">
+                <div className="card bg-slate-800 flex flex-col items-center">
+                  <p className="mx-10 mt-2 text-white text-3xl">
+                    Total:{" "}
+                    {typeof cartData?.orderTotal === "number"
+                      ? `$${cartData.orderTotal.toFixed(2)}`
+                      : ""}
+                  </p>
+                  <button
+                    className="btn w-72 bg-indigo-700 text-xl text-white mt-5 mb-5 px-4"
+                    onClick={handleCheckout}
+                  >
+                    CheckOut
+                  </button>
                 </div>
-              )}
+              </div>
+            )}
           </div>
         </section>
       </main>
