@@ -68,6 +68,7 @@ export default function FruitCard({
             className="select outline outline-2 outline-black select-xs bg-white rounded-md my-2 text-black"
             defaultValue="1"
             onChange={handleDropdownChange}
+            disabled={maxQuantity === 0}
           >
             {Array.from({ length: maxQuantity }, (_, index) => index + 1).map(
               (option) => (
@@ -79,8 +80,8 @@ export default function FruitCard({
           </select>
           <button
             onClick={handleAddToCart}
-            className="btn btn-sm bg-slate-400 mr-7 text-white"
-            disabled={fruitPrice === "Out of Stock"}
+            className="btn btn-sm bg-indigo-600 mr-7 text-white"
+            disabled={maxQuantity === 0}
           >
             <BsFillCartPlusFill />
           </button>
