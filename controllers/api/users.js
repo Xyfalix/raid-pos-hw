@@ -15,10 +15,7 @@ const create = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  console.log(req.body)
   const { name, password } = req.body;
-  console.log(name)
-  console.log(password)
 
   const user = await User.findOne({ name });
 
@@ -28,7 +25,6 @@ const login = async (req, res) => {
   }
 
   const match = await bcrypt.compare(password, user.password);
-  console.log(`match is ${match}`)
   if (match) {
     const { _id, name, role } = user;
     const token = jwt.sign({ _id, name, role }, process.env.SECRET, {

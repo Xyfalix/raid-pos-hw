@@ -33,8 +33,6 @@ export async function login(name, password) {
     body: JSON.stringify({ name, password }),
   });
 
-  console.log(name)
-
   // Check if request was successful
   if (res.ok) {
     // res.json() will resolve to the JWT

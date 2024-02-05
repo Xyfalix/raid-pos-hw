@@ -10,8 +10,6 @@ const checkToken = async (req, res, next) => {
     const authHeaderArray = authHeader.split(" ");
     const token = authHeaderArray[1];
 
-    console.log(token)
-
     try {
         const decoded = jwt.verify(token, process.env.SECRET);
         res.locals.userId = decoded._id;
@@ -23,7 +21,6 @@ const checkToken = async (req, res, next) => {
 };
 
 function checkAdminRole(req, res, next) {
-    console.log(res.locals.userRole)
     if (res.locals.userRole === "admin") {
         next();
     } else {

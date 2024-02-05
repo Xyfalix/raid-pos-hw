@@ -14,9 +14,16 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<AppLanding />}></Route>
-        <Route path="/login" element={<AuthPage setUser={setUser} />}></Route>
-        <Route path="/access-denied" element={<AccessDenied />}></Route>
+        <Route path="/login" element={<AuthPage setUser={setUser} />} />
+        <Route path="/access-denied" element={<AccessDenied />} />
+        <Route
+            path="/"
+            element={
+              <ProtectedRoute user={user}>
+                <AppLanding />
+              </ProtectedRoute>
+            }
+          />
       </Routes>
     </>
   );

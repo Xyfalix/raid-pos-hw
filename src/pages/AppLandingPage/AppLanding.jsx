@@ -89,7 +89,7 @@ export default function AppLanding() {
             <p className="mx-3 mb-5 text-4xl font-bold text-slate-50 lg:text-center">
               Fruits
             </p>
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-1">
+            <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-4">
               {fruits.map((fruit, index) => (
                 <FruitCard
                   key={index}

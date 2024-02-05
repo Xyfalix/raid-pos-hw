@@ -1,5 +1,5 @@
 import { logout } from "../utilities/users-service.mjs";
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 export default function NavBar({ user, setUser }) {
   const navigate = useNavigate();
@@ -12,6 +12,7 @@ export default function NavBar({ user, setUser }) {
     event.preventDefault();
     logout();
     setUser(null);
+    window.location.reload()
   };
 
   const isAdmin = user && user.role === "admin";
@@ -30,15 +31,10 @@ export default function NavBar({ user, setUser }) {
               </label>
               <ul
                 tabIndex={0}
-                className="menu dropdown-content z-[1] p-2 shadow bg-indigo-700 rounded-box w-32 mt-2 items-start"
+                className="menu dropdown-content z-[1] p-2 shadow bg-indigo-700 rounded-box w-32 mt-2 items-center"
               >
-                {isAdmin && ( // Render viewItems link if user is an admin
-                  <li>
-                    <Link to="/viewItems">View Transactions</Link>
-                  </li>
-                )}
                 <li>
-                  <button onClick={handleLogout}>Logout</button>
+                  <button className="text-white text-center" onClick={handleLogout}>Logout</button>
                 </li>
               </ul>
             </div>

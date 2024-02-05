@@ -58,7 +58,7 @@ const getCart = async (req, res) => {
       }));
 
       return res.status(200).json({
-        cartWithExtPrice, // Include line items with extPrice
+        cartWithExtPrice, // extPrice is the base price of the item * qty selected
         orderTotal,
         totalQty,
         orderId,
@@ -107,8 +107,6 @@ const addToCart = async (req, res) => {
   const fruitName = req.params.fruitName
   const addedQty = parseInt(req.params.addedQty);
   const userId = res.locals.userId;
-  console.log(userId);
-  console.log(typeof addedQty);
 
   try {
     const cart = await Order.findOne({
@@ -125,7 +123,6 @@ const addToCart = async (req, res) => {
       );
 
       if (existingItem) { // if fruit exists, add added qty to its current value
-        console.log(typeof existingItem.qty);
         existingItem.qty += addedQty;
       } else { // add new fruit and addedQty to cart
         let fruit = await Fruit.findOne({ fruitName })
@@ -153,8 +150,6 @@ const deleteItemFromCart = async (req, res) => {
   const userId = res.locals.userId;
   const fruitName = req.params.fruitName;
 
-  console.log(`fruit name is ${fruitName}`);
-
   try {
     const cart = await Order.findOne({
       orderStatus: "pending payment",
@@ -171,16 +166,12 @@ const deleteItemFromCart = async (req, res) => {
       (lineItem) => lineItem.fruit.fruitName === fruitName,
     );
 
-    console.log(`item index is ${fruitIndex}`);
-
     if (fruitIndex === -1) {
       return res.status(404).json({ error: "Item not found in order" });
     }
 
     // remove specified fruit from cart
     cart.lineItems.splice(fruitIndex, 1);
-
-    console.log(`cart lineitems is ${cart.lineItems}`);
 
     await cart.save();
 

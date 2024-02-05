@@ -79,7 +79,6 @@ export async function setItemQty(itemId, itemQty) {
 
 export async function addToCart(fruitName, qtyAdded) {
   // returns cart with new added item
-  console.log(`usersServices ${fruitName}`);
   const updatedCartData = await usersAPI.addToCart(
     fruitName,
     qtyAdded,
